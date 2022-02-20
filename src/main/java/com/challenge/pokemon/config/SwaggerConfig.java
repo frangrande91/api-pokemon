@@ -19,7 +19,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.challenge.pokemon"))
-                .paths(PathSelectors.any())
+                .paths(PathSelectors.ant("https://api-pokemon.azurewebsites.net/"))
                 .build()
                 .apiInfo(apiInfo());
     }
