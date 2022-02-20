@@ -4,6 +4,7 @@ import com.challenge.pokemon.exception.PokemonNotExistsException;
 import com.challenge.pokemon.model.dto.PokemonBasicDto;
 import com.challenge.pokemon.model.dto.PokemonDetailsDto;
 import com.challenge.pokemon.service.PokemonService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ public class PokemonController {
         this.pokemonService = pokemonService;
     }
 
+    @ApiOperation(value = "Get all pokemons", notes = "Get all pokemons with basic information")
     @GetMapping
     public ResponseEntity<List<PokemonBasicDto>> getAllPokemons(@RequestParam(defaultValue = "20", value = "limit") Integer limit) throws IOException, InterruptedException {
         return ResponseEntity
@@ -35,6 +37,7 @@ public class PokemonController {
                 .body(pokemonService.getAllPokemons(limit));
     }
 
+    @ApiOperation(value = "Get Pokemon", notes = "Get a Pokemon by id or name, with basic information, descriptions in spanish and list of moves")
     @GetMapping("/{idOrName}")
     public ResponseEntity<PokemonDetailsDto> getPokemon(@PathVariable String idOrName) throws IOException, InterruptedException, PokemonNotExistsException {
         return ResponseEntity.ok(pokemonService.getDetailsPokemon(idOrName));
