@@ -1,11 +1,14 @@
 package com.challenge.pokemon.controller;
 
+import com.challenge.pokemon.exception.PokemonNotExistsException;
 import com.challenge.pokemon.model.dto.PokemonBasicDto;
+import com.challenge.pokemon.model.dto.PokemonDetailsDto;
 import com.challenge.pokemon.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,5 +33,10 @@ public class PokemonController {
                 .status(HttpStatus.OK)
                 .header("X-Total-Count", Long.toString(limit))
                 .body(pokemonService.getAllPokemons(limit));
+    }
+
+    @GetMapping("/{idOrName}")
+    public ResponseEntity<PokemonDetailsDto> getPokemon(@PathVariable String idOrName) throws IOException, InterruptedException, PokemonNotExistsException {
+        return ResponseEntity.ok(pokemonService.getDetailsPokemon(idOrName));
     }
 }
