@@ -17,7 +17,6 @@ public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .host("api-pokemon.azurewebsites.net")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.challenge.pokemon"))
                 .paths(PathSelectors.any())
